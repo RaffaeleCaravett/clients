@@ -12,8 +12,11 @@
   </button>
 </div>
 <div class="col-md-4">
-  <button class="btn">
+  <button class="btn" *ngIf="!signedIn">
     Login/Signup
+  </button>
+  <button class="btn" *ngIf="signedIn">
+    Logout
   </button>
 </div>
     </div>

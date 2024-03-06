@@ -8,13 +8,17 @@ import { FormsComponent } from './components/forms/forms.component';
 import { SearchComponent } from './components/search/search.component';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { NavComponent } from './components/nav/nav.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FormsComponent,
-    SearchComponent
+    SearchComponent,
+    NavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

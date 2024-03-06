@@ -1,4 +1,4 @@
 export const enviroment =
 {
-  API_URL : "localhost://8080"
+  API_URL : "localhost://3031"
 }
