@@ -2,17 +2,17 @@
   <div class="container">
     <div class="row">
 <div class="col-md-4">
-  <button class="btn">
+  <button class="btn" [routerLink]="'/'">
     Home
   </button>
 </div>
 <div class="col-md-4">
-  <button class="btn">
+  <button class="btn" [routerLink]="'/search'">
     Search
   </button>
 </div>
 <div class="col-md-4">
-  <button class="btn" *ngIf="!signedIn">
+  <button class="btn" *ngIf="!signedIn" [routerLink]="'/forms'">
     Login/Signup
   </button>
   <button class="btn" *ngIf="signedIn">
