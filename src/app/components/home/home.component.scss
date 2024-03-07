@@ -1,0 +1,28 @@
+*{
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+h2{
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+h1{
+  font-size: 60px;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.rounded{
+  background: rgba(255,255,255,0.5);
+}
+.col-md-4{
+
+  &:hover{
+    scale: 1.1;
+    transition: 2s;
+  }
+   scale: 0.9;
+   transition: 2s;
+}
+}
