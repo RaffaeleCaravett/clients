@@ -25,4 +25,79 @@ h1{
    scale: 0.9;
    transition: 2s;
 }
+
+    .bg-w{
+      background: rgba(255, 208, 0, 0.9);
+      &:hover{
+        animation: rotate 0.5s infinite;
+
+      }
+    }
+    .bg-d{
+      background: rgba(7, 7, 6, 0.5);
+      &:hover{
+        animation: rotate 0.5s infinite;
+
+      }
+    }
+
 }
+@keyframes rotate {
+  0% {
+    transform: translate(0, 0) rotate(15deg);
+  }
+  5% {
+    transform: translate(0, 0) rotate(10deg);
+  }
+  10% {
+    transform: translate(0, 0) rotate(5deg);
+  }
+  15% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(0, 0) rotate(-5deg);
+  }
+  30% {
+    transform: translate(0, 0) rotate(-10deg);
+  }
+  35% {
+    transform: translate(0, 0) rotate(-15deg);
+  }
+  40% {
+    transform: translate(0, 0) rotate(-10deg);
+  }
+  45% {
+    transform: translate(0, 0) rotate(-5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  60% {
+    transform: translate(0, 0) rotate(5deg);
+  }
+  65% {
+    transform: translate(0, 0) rotate(10deg);
+  }
+  70% {
+    transform: translate(0, 0) rotate(15deg);
+  }
+  75% {
+    transform: translate(0, 0) rotate(10deg);
+  }
+  80% {
+    transform: translate(0, 0) rotate(5deg);
+  }
+  85% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  90% {
+    transform: translate(0, 0) rotate(-5deg);
+  }
+  95% {
+    transform: translate(0, 0) rotate(-10deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+    }
