@@ -1,1 +1,54 @@
-<p>forms works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" *ngIf="section=='login'">
+
+    </div>
+    <div class="col-md-12 text-center" *ngIf="section=='signup'">
+      <mat-stepper orientation="vertical" [linear]="!isLinear" #stepper class="m-auto" style="max-width: 256px;">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Part 1</ng-template>
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="First name" formControlName="nome" required>
+              </mat-form-field>
+              <mat-form-field>
+              <mat-label>Cognome</mat-label>
+              <input matInput placeholder="Last name" formControlName="cognome" required>
+              </mat-form-field>
+              <mat-form-field>
+              <mat-label>Età</mat-label>
+              <input matInput type="number" placeholder="Age" formControlName="eta" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Part 2</ng-template>
+            <mat-form-field>
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="email" placeholder="Ex. 1 Main St, New York, NY"
+                     required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>Let's submit the form.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="signUp()">Submit</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+      <button class="btn" (click)="getRandomCliente()">Generate a random client</button>
+    </div>
+  </div>
+</div>
