@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsComponent } from './forms.component';
+import { MatOptionModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,9 @@ import { FormsComponent } from './forms.component';
     MatFormFieldModule,
     MatStepperModule,
     MatButtonModule,
-    FormsModule
-  ],
-  exports:[
-    FormsComponent
+    FormsModule,
+    MatSelectModule,
+    MatOptionModule
   ]
 })
 export class FormssModule { }

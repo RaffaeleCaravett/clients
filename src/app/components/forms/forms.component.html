@@ -11,14 +11,24 @@
             <mat-form-field>
               <mat-label>Name</mat-label>
               <input matInput placeholder="First name" formControlName="nome" required>
+              <p class="fs-6 text-danger" *ngIf="firstFormGroup.controls['nome'].invalid&&this.submitted==true">Campo invalido</p>
               </mat-form-field>
               <mat-form-field>
               <mat-label>Cognome</mat-label>
               <input matInput placeholder="Last name" formControlName="cognome" required>
+              <p class="fs-6 text-danger" *ngIf="firstFormGroup.controls['cognome'].invalid&&this.submitted==true">Campo invalido</p>
               </mat-form-field>
               <mat-form-field>
               <mat-label>Età</mat-label>
               <input matInput type="number" placeholder="Age" formControlName="eta" required>
+              <p class="fs-6 text-danger" *ngIf="firstFormGroup.controls['eta'].invalid&&this.submitted==true">Campo invalido</p>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Città</mat-label>
+              <mat-select formControlName="citta">
+                  <mat-option [value]="c.id" *ngFor="let c of cities">{{c.nome}}</mat-option>
+              </mat-select>
+              <p class="fs-6 text-danger" *ngIf="firstFormGroup.controls['citta'].invalid&&this.submitted==true">Campo invalido</p>
             </mat-form-field>
             <div>
               <button mat-button matStepperNext>Next</button>
@@ -29,10 +39,35 @@
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Part 2</ng-template>
             <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="email" placeholder="Ex. 1 Main St, New York, NY"
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email"
                      required>
+                     <p class="fs-6 text-danger" *ngIf="secondFormGroup.controls['email'].invalid&&this.submitted==true">Campo invalido</p>
             </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password"
+                     required>
+                     <p class="fs-6 text-danger" *ngIf="secondFormGroup.controls['password'].invalid&&this.submitted==true">Campo invalido</p>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Ripeti password</mat-label>
+              <input matInput formControlName="ripetiPassword"
+                     required>
+                     <p class="fs-6 text-danger" *ngIf="secondFormGroup.controls['ripetiPassword'].invalid&&this.submitted==true">Campo invalido</p>
+                     <p class="fs-6 text-danger" *ngIf="secondFormGroup.controls['ripetiPassword'].value!=secondFormGroup.controls['password'].value&&this.submitted==true">Le password non coincidono</p>
+                    </mat-form-field>
+            <mat-form-field class="d-none">
+              <mat-label>Immagine</mat-label>
+              <input matInput formControlName="immagineProfilo" class="d-none"
+                     required>
+                     <input type="file" #immagine accept="image/png, image/gif, image/jpeg, image/jpg" (change)="readURL($event)">
+            </mat-form-field>
+            <mat-label (click)="immagine.click()" style="cursor: pointer;"> <span class="fs-5">⬇️</span> Immagine <span class="fs-5">⬇️</span></mat-label>
+            <img src="{{selectedImage||'assets/forms/empty-avatar.webp'}}" style="cursor: pointer;max-height:170px" (click)="immagine.click()" alt="" class="w-100 rounded-circle border shadow">
+            <p class="fs-6 text-danger" *ngIf="secondFormGroup.controls['immagineProfilo'].invalid&&submitted==true">Campo invalido</p>
+            <button class="px-2 py-3 bt w-75" *ngIf="selectedImage" (click)="selectedImage=undefined;fileImage=null;
+            secondFormGroup.controls['immagineProfilo'].setValue('')">❌</button>
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
