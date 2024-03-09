@@ -15,7 +15,7 @@
   <button class="btn" *ngIf="!signedIn" [routerLink]="'/forms'">
     Login/Signup
   </button>
-  <button class="btn" *ngIf="signedIn">
+  <button class="btn" *ngIf="signedIn" (click)="logout()">
     Logout
   </button>
 </div>
