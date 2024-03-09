@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormsService } from 'src/app/services/forms.service';
 
@@ -17,9 +18,14 @@ cities:any[]=[]
 selectedImage:any
 fileImage:any
 submitted:boolean=false
-constructor(private _formBuilder: FormBuilder, private formService:FormsService,private toastr:ToastrService) {}
+loginForm!:FormGroup
+constructor(private _formBuilder: FormBuilder, private formService:FormsService,private toastr:ToastrService,private router:Router) {}
 
   ngOnInit(): void {
+    this.loginForm=new FormGroup({
+      email:new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]),
+      password: new FormControl('', [Validators.required,Validators.minLength(6)]),
+    })
     this.formService.getAllCities().subscribe((cities:any)=>{
       this.cities=cities
     })
@@ -41,8 +47,32 @@ this.isLinear = false;
 
 
   signUp(){
-if(this.firstFormGroup.valid&&this.secondFormGroup.valid){
-
+    this.submitted=true
+if(this.firstFormGroup.valid&&this.secondFormGroup.valid&&this.secondFormGroup.controls['password'].value==this.secondFormGroup.controls['ripetiPassword'].value&&this.selectedImage){
+    this.formService.signUp(
+      {
+        nome:this.firstFormGroup.controls['nome'].value,
+        email:this.secondFormGroup.controls['email'].value,
+        password:this.secondFormGroup.controls['password'].value,
+        citta_id:this.firstFormGroup.controls['citta'].value,
+        cognome:this.firstFormGroup.controls['cognome'].value,
+        eta:this.firstFormGroup.controls['eta'].value,
+      },this.fileImage
+    ).subscribe({
+      next: (esercizio:any)=>{
+        if(esercizio){
+    this.toastr.show("Cliente salvato")
+    this.firstFormGroup.reset()
+    this.section='login'
+    this.fileImage=null
+    this.selectedImage=null
+            }
+          },
+          error:(err:any)=>{
+            this.toastr.show(err.error.message||"Qualcosa è andato storto nel salvataggio della scheda")
+          },
+          complete:()=>{}
+        })
 }else if(this.firstFormGroup.invalid&&this.secondFormGroup.invalid){
   this.toastr.show("Manca qualche dato richiesto")
 }else if(this.secondFormGroup.controls['password'].value!=this.secondFormGroup.controls['ripetiPassword'].value){
@@ -79,10 +109,41 @@ this.formService.getRandomCliente().subscribe((cliente:any)=>{
 this.secondFormGroup.controls['immagineProfilo'].setValue('Ciao')
         const reader = new FileReader();
         reader.onload = e => this.selectedImage = reader.result;
-
         reader.readAsDataURL(this.fileImage);
     }
 
     }
+  }
+  login(){
+this.submitted=true
+    if(this.loginForm.valid){
+this.formService.login(
+  {
+  email:this.loginForm.controls['email'].value,
+  password:this.loginForm.controls['password'].value
+  }
+  ).subscribe({
+    next:(data:any)=>{
+    console.log(data)
+    if(data){
+      this.formService.verifyClienteToken(data.tokens.accessToken).subscribe((user:any)=>{
+        if(user){
+          localStorage.setItem('cliente',JSON.stringify(user))
+          localStorage.setItem('accessToken',data.tokens.accessToken)
+          localStorage.setItem('refreshToken',data.tokens.refreshToken)
+          this.formService.authenticateUser(true)
+          this.formService.setToken(data.tokens.accessToken)
+          this.formService.setRefreshToken(data.tokens.refreshToken)
+          this.router.navigate(['/search'])
+        }
+      })
+    }
+  },
+  error:(err:any)=>{
+this.toastr.show(err.error.message||"Qualcosa è andato storto nel login")
+  },
+  complete: ()=>{}
+})
+}
   }
 }

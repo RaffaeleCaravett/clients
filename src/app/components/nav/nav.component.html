@@ -7,7 +7,7 @@
   </button>
 </div>
 <div class="col-md-4">
-  <button class="btn" [routerLink]="'/search'">
+  <button class="btn" [routerLink]="'/search'" *ngIf="signedIn">
     Search
   </button>
 </div>

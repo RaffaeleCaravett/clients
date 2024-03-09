@@ -1,9 +1,31 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12" *ngIf="section=='login'">
-
+  <div class="row text-center">
+    <div class="col-md-12 py-5" *ngIf="section=='login'">
+      <h1>Login</h1>
+      <form [formGroup]="loginForm" class="py-5">
+        <p>
+          <mat-form-field class="m-auto">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <p class="text-danger" *ngIf="submitted&&loginForm.controls['email'].invalid">Email non valida</p>
+      </mat-form-field>
+        </p>
+      <br>
+      <p>
+ <mat-form-field class="m-auto">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password">
+        <p class="text-danger" *ngIf="submitted&&loginForm.controls['password'].invalid">Password non valida (minimo 6 caratteri)</p>
+      </mat-form-field>
+      </p>
+      <button mat-button (click)="login()">Login</button>
+       <hr>
+        <p>or</p>
+      <button class="btn" (click)="section='signup';loginForm.reset();submitted=false;">Signup here</button>
+    </form>
     </div>
-    <div class="col-md-12 text-center" *ngIf="section=='signup'">
+    <div class="col-md-12" *ngIf="section=='signup'">
+      <h1>Signup</h1>
       <mat-stepper orientation="vertical" [linear]="!isLinear" #stepper class="m-auto" style="max-width: 256px;">
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup">
@@ -84,6 +106,9 @@
         </mat-step>
       </mat-stepper>
       <button class="btn" (click)="getRandomCliente()">Generate a random client</button>
+       <hr>
+       <p>or</p>
+      <button class="btn" (click)="section='login';firstFormGroup.reset();secondFormGroup.reset();submitted=false;fileImage=null;selectedImage=null">Login here</button>
     </div>
   </div>
 </div>
