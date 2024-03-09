@@ -2,13 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SearchRoutingModule } from './search-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from './search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SearchComponent
+  ],
   imports: [
     CommonModule,
-    SearchRoutingModule
+    SearchRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class SearchModule { }

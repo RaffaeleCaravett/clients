@@ -124,7 +124,6 @@ this.formService.login(
   }
   ).subscribe({
     next:(data:any)=>{
-    console.log(data)
     if(data){
       this.formService.verifyClienteToken(data.tokens.accessToken).subscribe((user:any)=>{
         if(user){
@@ -134,7 +133,7 @@ this.formService.login(
           this.formService.authenticateUser(true)
           this.formService.setToken(data.tokens.accessToken)
           this.formService.setRefreshToken(data.tokens.refreshToken)
-          this.router.navigate(['/search'])
+          this.router.navigate(['/search',user.id])
         }
       })
     }

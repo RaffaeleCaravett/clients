@@ -1,1 +1,16 @@
-<p>search works!</p>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-12 py-5">
+      <h1>Search, make orders and receive.</h1>
+    </div>
+    <div class="col-md-6 py-3">
+<h2>Search here</h2>
+<form [formGroup]="searchBusinessesForm" class="d-flex">
+<input type="text" class="form-control w-75 m-auto"><span class="btn" (click)="search()">🔎</span>
+</form>
+    </div>
+    <div class="col-md-6 py-3">
+<h2>Chose here</h2>
+    </div>
+  </div>
+</div>

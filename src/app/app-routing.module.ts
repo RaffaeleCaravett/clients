@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)
   },
   {
-    path:'search',
+    path:'search/:id',
     loadChildren: () => import('./components/search/search.module').then(m => m.SearchModule),canActivate:[AuthGuard]
   },
   {
