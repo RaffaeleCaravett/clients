@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit{
 cities:any[]=[]
 businesses:any[]=[]
 carrello:any[]=[]
+order:any
   constructor(private activatedRoute:ActivatedRoute,private searchService:SearchService,private toastr:ToastrService){
 }
   ngOnInit(): void {
@@ -44,4 +45,22 @@ this.searchService.getEsercizioByCittàAndNomeContaining(
 this.toastr.show('Inserisci la città prima')
 }
   }
+
+addItemToOrder(itemId:number){
+this.order=[]
+let bool:boolean=false
+this.business.prodottos.forEach((p:any)=> {
+  if(p.id==itemId){
+this.order.forEach((pr:any)=>{
+  if(pr.id==itemId){
+    bool=true
+  }
+})
+if(!bool){
+  this.order.push()
+}
+  }
+});
+
+}
 }
