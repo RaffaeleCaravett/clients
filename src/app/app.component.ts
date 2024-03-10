@@ -29,12 +29,12 @@ this.formsService.verifyClienteToken(token!).subscribe({
 this.formsService.verifyClienteRefreshToken(refreshToken!).subscribe({
   next:(tokens:any)=>{
     if(tokens){
-      this.formsService.verifyClienteToken(tokens.token).subscribe({
+      this.formsService.verifyClienteToken(tokens.accessToken).subscribe({
         next:(data:any)=>{
           if(data){
             localStorage.setItem('cliente',data)
-            this.formsService.token=token!
-            this.formsService.refreshToken=refreshToken!
+            this.formsService.token=tokens.accessToken
+            this.formsService.refreshToken=tokens.refreshToken
             this.formsService.authenticateUser(true)
             this.router.navigate(['/search',data.id])
           }

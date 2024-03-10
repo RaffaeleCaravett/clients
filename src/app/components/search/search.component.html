@@ -5,12 +5,51 @@
     </div>
     <div class="col-md-6 py-3">
 <h2>Search here</h2>
-<form [formGroup]="searchBusinessesForm" class="d-flex">
-<input type="text" class="form-control w-75 m-auto"><span class="btn" (click)="search()">🔎</span>
+<form [formGroup]="searchBusinessesForm" >
+  <label for="" class="p-1">Seleziona la città</label>
+  <select name="" id="" formControlName="citta" class="form-select w-75 m-auto">
+    <option value=""></option>
+    <option value="{{c.id}}" *ngFor="let c of cities">{{c.nome}}</option>
+  </select>
+   <label for="" class="p-1">Inserisci il nome</label>
+<input type="text" class="form-control w-75 m-auto" formControlName="nome" (input)="search()">
+  <span class="btn" (click)="search()">Cerca 🔎</span>
 </form>
+<div class="p-2 row m-1 border rounded shadow" *ngFor="let b of businesses" style="cursor: pointer;" (click)="business=b">
+<div class="col-md-3 p-1">
+  <img src="{{b.immagine_profilo}}" alt="" class="w-50">
+<p class="fs-6">{{b.citta.nome}}</p>
+</div>
+<div class="col-md-9 p-1">
+  <h2>{{b.nome + ' - ' + b.tipoEsercizio}}</h2>
+  <p>{{b.indirizzo + ' - ' + b.citta.nome}}</p>
+</div>
+</div>
     </div>
-    <div class="col-md-6 py-3">
-<h2>Chose here</h2>
+    <div class="col-md-6 py-3 p-1">
+        <h2>Chose here</h2>
+  <div class="border rounded p-1 shadow overflow-auto" style="height: 400px;">
+    <p class="text-end" *ngIf="business"><button class="btn fs-5" (click)="business=null;carrello=[]">❌</button></p>
+    <p class="fs-5 py-5" *ngIf="!business">Effettua la ricerca e seleziona un locale per poter ordinare qualcosa.</p>
+  <div class="row" *ngIf="business">
+    <div class="col-md-3 p-1">
+      <img src="{{business.immagine_profilo}}" alt="" class="w-50">
+    <p class="fs-6">{{business.citta.nome}}</p>
+    </div>
+    <div class="col-md-9 p-1">
+      <h2>{{business.nome + ' - ' + business.tipoEsercizio}}</h2>
+      <p>{{business.indirizzo + ' - ' + business.citta.nome}}</p>
+    </div>
+    <div class="col-md-12 px-3 text-center">
+      <h2>Menù</h2>
+      <div class="p-2 border rounded shadow">
+        <p *ngFor="let p of business.prodottos">{{p.nomeProdotto + " - " + p.prezzo}} <br>
+        <span *ngFor="let i of p.ingredientes;index as a">{{i.nome}} <span *ngIf="a-1!=p.ingredientes.length">,</span><span *ngIf="a-1==p.ingredientes.length">.</span></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
     </div>
   </div>
 </div>
