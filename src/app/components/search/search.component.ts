@@ -41,6 +41,8 @@ this.searchService.getEsercizioByCittàAndNomeContaining(
     ).subscribe((esercizi:any)=>{
   this.businesses=esercizi
 })
+}else if(!this.searchBusinessesForm.controls['nome'].value||this.searchBusinessesForm.controls['nome'].value==''){
+  this.businesses=[]
 }else{
 this.toastr.show('Inserisci la città prima')
 }
