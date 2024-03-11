@@ -34,7 +34,7 @@ this.formsService.verifyClienteRefreshToken(refreshToken!).subscribe({
           if(data){
             localStorage.setItem('cliente',data)
             this.formsService.token=tokens.accessToken
-            this.formsService.refreshToken=tokens.refreshToken
+            this.formsService.refreshToken=tokens.refreshToken!
             this.formsService.authenticateUser(true)
             this.router.navigate(['/search',data.id])
           }

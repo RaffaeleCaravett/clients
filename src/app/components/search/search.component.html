@@ -13,9 +13,10 @@
   </select>
    <label for="" class="p-1">Inserisci il nome</label>
 <input type="text" class="form-control w-75 m-auto" formControlName="nome" (input)="search()">
-  <span class="btn" (click)="search();order=null;business=null">Cerca 🔎</span>
+  <span class="btn" (click)="search();order=[];business=null">Cerca 🔎</span>
 </form>
-<div class="p-2 row m-1 border rounded shadow" *ngFor="let b of businesses" style="cursor: pointer;" (click)="business=b">
+<div class="p-2 row m-1 border rounded shadow" *ngFor="let b of businesses,index as i" style="cursor: pointer;" (click)="business=b">
+  <div class="col-md-12 text-start">{{i}}</div>
 <div class="col-md-3 p-1">
   <img src="{{b.immagine_profilo}}" alt="" class="w-50">
 <p class="fs-6">{{b.citta.nome}}</p>
@@ -51,7 +52,7 @@
       <h2>{{business.nome + ' - ' + business.tipoEsercizio}}</h2>
       <p>{{business.indirizzo + ' - ' + business.citta.nome}}</p>
     </div>
-    <div class="col-md-12 px-1 text-center" *ngIf="!order">
+    <div class="col-md-12 px-1 text-center" *ngIf="order.length<=0">
       <h2>Menù</h2>
       <div class="p-2 border rounded shadow">
         <h2>Antipasti</h2>
@@ -117,14 +118,14 @@
           </div>
       </div>
     </div>
-    <div class="col-md-8 px-1 text-center" *ngIf="order">
+    <div class="col-md-8 px-1 text-center" *ngIf="order.length>0">
       <h2>Menù</h2>
       <div class="p-2 border rounded shadow">
         <h2>Antipasti</h2>
         <div *ngFor="let p of business.prodottos" class="fs-5">
           <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='ANTIPASTO'">
         {{p.nomeProdotto + ' - ' + p.prezzo}} <br><span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-            <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+            <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
             </span>
           </p>
         </div>
@@ -132,7 +133,7 @@
         <div *ngFor="let p of business.prodottos" class="fs-5">
           <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='PRIMO'">
         {{p.nomeProdotto + ' - ' + p.prezzo}} <br><span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-            <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+            <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
             </span>
           </p>
         </div>
@@ -141,7 +142,7 @@
             <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='SECONDO'">
           {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
           <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
               </span>
             </p>
           </div>
@@ -150,7 +151,7 @@
             <p  class="bg-warning p-2 my-1"  *ngIf="p.tipoProdotto=='PIZZA_BIANCA'" >
           {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
           <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
               </span>
             </p>
           </div>
@@ -159,7 +160,7 @@
             <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='PIZZA_ROSSA'" >
           {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
           <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
               </span>
             </p>
           </div>
@@ -168,7 +169,7 @@
             <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='DOLCE'" >
           {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
           <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
               </span>
             </p>
           </div>
@@ -177,14 +178,23 @@
             <p  class="bg-warning p-2 my-1" *ngIf="p.tipoProdotto=='BIBITA'">
           {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
           <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
-              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn btn-light fs-5" (click)="addItemToOrder(p.id)">Add to order</button>
               </span>
             </p>
           </div>
       </div>
     </div>
-    <div class="col-md-4 p-1" *ngIf="order">
-<p class="p-1 text-end"><button class="btn" (click)="order=null">Svuota ordine 🗑️</button></p>
+    <div class="col-md-4 p-1" *ngIf="order.length>0">
+<p class="p-1 text-end"><button class="btn" (click)="order=[]">Svuota ordine 🗑️</button></p>
+<p class="p-1 text-end"><button class="btn">Totale : {{total}}</button></p>
+<p class="p-1 fs-5">Il tuo ordine</p>
+<p *ngFor="let p of order" class="p-1 border rounded shadow bg-light">
+  {{p.nomeProdotto + ' - ' + p.prezzo}} <br>
+          <span class="py-1 fs-6">Ingredients:</span><br> <span class="fs-6" *ngFor="let i of p.ingredientes, index as a">{{i.nome}}
+              <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span><button class="btn fs-5" (click)="removeItemFromOrder(p.id)">Remove item</button>
+              </span>
+</p>
+<button class="btn">Acquista</button>
     </div>
   </div>
   </div>

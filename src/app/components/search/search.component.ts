@@ -15,7 +15,8 @@ export class SearchComponent implements OnInit{
 cities:any[]=[]
 businesses:any[]=[]
 carrello:any[]=[]
-order:any
+order:any[]=[]
+total:number=0
   constructor(private activatedRoute:ActivatedRoute,private searchService:SearchService,private toastr:ToastrService){
 }
   ngOnInit(): void {
@@ -40,29 +41,49 @@ this.searchService.getEsercizioByCittàAndNomeContaining(
     this.searchBusinessesForm.controls['nome'].value
     ).subscribe((esercizi:any)=>{
   this.businesses=esercizi
+  this.total=0
 })
 }else if(!this.searchBusinessesForm.controls['nome'].value||this.searchBusinessesForm.controls['nome'].value==''){
   this.businesses=[]
+  this.total=0
 }else{
 this.toastr.show('Inserisci la città prima')
 }
   }
 
 addItemToOrder(itemId:number){
-this.order=[]
-let bool:boolean=false
 this.business.prodottos.forEach((p:any)=> {
   if(p.id==itemId){
-this.order.forEach((pr:any)=>{
-  if(pr.id==itemId){
-    bool=true
-  }
-})
-if(!bool){
-  this.order.push()
-}
+  this.order.push(p)
   }
 });
-
+let totale=0
+this.order.forEach((p:any)=>{
+  totale+=p.prezzo
+})
+this.total=totale
+}
+removeItemFromOrder(itemId:number){
+if(this.order){
+  let newOrder:any[]=[]
+  let numb:number=0
+  this.order.forEach((p:any)=>{
+    if(p.id!=itemId){
+    newOrder.push(p)
+    }else if(p.id==itemId){
+      if(numb==0){
+numb+=1
+      }else{
+newOrder.push(p)
+      }
+    }
+  })
+  this.order=newOrder
+  let totale=0
+  this.order.forEach((p:any)=>{
+    totale+=p.prezzo
+  })
+  this.total=totale
+}
 }
 }
