@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SearchService } from 'src/app/services/search.service';
+import { AcquistoComponent } from '../acquisto/acquisto.component';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +19,8 @@ businesses:any[]=[]
 carrello:any[]=[]
 order:any[]=[]
 total:number=0
-  constructor(private activatedRoute:ActivatedRoute,private searchService:SearchService,private toastr:ToastrService){
+clienteId:any
+  constructor(private activatedRoute:ActivatedRoute,private searchService:SearchService,private toastr:ToastrService,private matDialog:MatDialog){
 }
   ngOnInit(): void {
     this.searchBusinessesForm= new FormGroup({
@@ -25,7 +28,7 @@ total:number=0
       nome:new FormControl('',Validators.required)
     })
     this.activatedRoute.params.subscribe(params => {
-      console.log(params['id'])
+     this.clienteId=params['id']
       })
       this.searchService.getAllCities().subscribe((cities:any)=>{
         if(cities){
@@ -85,5 +88,11 @@ newOrder.push(p)
   })
   this.total=totale
 }
+}
+generateSell(){
+  if(this.order.length>0){
+const dialogRef=this.matDialog.open(AcquistoComponent,{data:[this.clienteId,this.order,this.business]})
+dialogRef.afterClosed().subscribe((result:any)=>{console.log(result)})
+  }
 }
 }

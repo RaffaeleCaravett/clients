@@ -5,7 +5,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './search.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     SearchRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ]
 })
 export class SearchModule { }
