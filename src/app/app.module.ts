@@ -14,14 +14,14 @@ import { TokenInterceptor } from './core/token.interceptor';
   declarations: [
     AppComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
     ],
   providers: [
     provideAnimations(),
