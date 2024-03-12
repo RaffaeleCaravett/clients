@@ -1,4 +1,5 @@
 <div class="p-2 text-center">
+  <p class="p-2 text-end"> <button class="fs-5 btn" mat-button [mat-dialog-close]="">❌</button></p>
 <h1 mat-dialog-title>Effettua il tuo acquisto</h1>
 <div class="p-2" mat-dialog-content>
   <h2>Riepilogo dell'ordine :</h2>
@@ -8,9 +9,17 @@
                 <span *ngIf="a+1<p.ingredientes.length">,</span> <span *ngIf="a+1==p.ingredientes.length">.</span></span> <span>
                 </span>
   </p>
+  <p class="fs-5 text-center">Seleziona il tipo di pagamento</p>
+  <form [formGroup]="acquistoForm">
+  <label for="">Selezione</label>
+  <select name="" id="" class="form-select" formControlName="tipoPagamento">
+    <option value=""></option>
+    <option value="{{tp}}" *ngFor="let tp of tipiPagamento">{{tp}}</option>
+  </select>
+</form>
 </div>
 <div class="p-2">
-  <button class="btn m-1">Acquista</button>
-  <button class="btn m-1">Modifica Ordine</button>
+  <button class="btn m-1" (click)="generateSell()">Acquista</button>
+  <button class="btn m-1" mat-button [mat-dialog-close]="">Modifica Ordine</button>
 </div>
 </div>

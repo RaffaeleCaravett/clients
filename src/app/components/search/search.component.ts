@@ -91,8 +91,17 @@ newOrder.push(p)
 }
 generateSell(){
   if(this.order.length>0){
-const dialogRef=this.matDialog.open(AcquistoComponent,{data:[this.clienteId,this.order,this.business]})
-dialogRef.afterClosed().subscribe((result:any)=>{console.log(result)})
+const matDialog = this.matDialog.open(AcquistoComponent,{data:[this.clienteId,this.order,this.business]})
+matDialog.afterClosed().subscribe((result:any)=>{
+  if(result=='generated'){
+    this.order=[]
+    this.carrello=[]
+    this.business=null
+    this.total=0
+    this.businesses=[]
+this.searchBusinessesForm.reset()
+  }
+})
   }
 }
 }
